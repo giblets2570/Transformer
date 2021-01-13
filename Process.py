@@ -1,3 +1,4 @@
+import torch
 import pandas as pd
 import torchtext
 from torchtext import data
@@ -64,7 +65,7 @@ def create_dataset(opt, SRC, TRG):
     data_fields = [('src', SRC), ('trg', TRG)]
     train = data.TabularDataset('./translate_transformer_temp.csv', format='csv', fields=data_fields)
 
-    train_iter = MyIterator(train, batch_size=opt.batchsize, device=opt.device,
+    train_iter = MyIterator(train, batch_size=opt.batchsize, device=torch.device('cuda:0') if opt.device == 0 else torch.device('cpu'),
                         repeat=False, sort_key=lambda x: (len(x.src), len(x.trg)),
                         batch_size_fn=batch_size_fn, train=True, shuffle=True)
     

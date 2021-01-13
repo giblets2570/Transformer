@@ -27,6 +27,7 @@ def train_model(model, opt):
             torch.save(model.state_dict(), 'weights/model_weights')
                     
         for i, batch in enumerate(opt.train): 
+            # print(batch)
 
             src = batch.src.transpose(0,1)
             trg = batch.trg.transpose(0,1)
@@ -71,6 +72,7 @@ def main():
     parser.add_argument('-trg_lang', required=True)
     parser.add_argument('-no_cuda', action='store_true')
     parser.add_argument('-SGDR', action='store_true')
+    parser.add_argument('-vae', action='store_true')
     parser.add_argument('-epochs', type=int, default=2)
     parser.add_argument('-d_model', type=int, default=512)
     parser.add_argument('-n_layers', type=int, default=6)
